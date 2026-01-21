@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ManagementController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,6 +42,10 @@ Route::middleware('auth')->group(function () {
     
     // Transaction routes
     Route::resource('transactions', TransactionController::class);
+    
+    // SOA routes
+    Route::get('/soa', [ManagementController::class, 'soaGeneration'])->name('soa.index');
+    Route::get('/soa/generate-all', [ManagementController::class, 'generateAllSOAs'])->name('soa.generateAll');
 });
 
 require __DIR__.'/auth.php';
