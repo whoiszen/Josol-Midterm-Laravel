@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ManagementController extends Controller
 {
@@ -21,10 +23,12 @@ class ManagementController extends Controller
         $accounts = $this->getAccountsForSOA();
 
         foreach ($accounts as $account) {
-        
-            
 
-            \Log::info("Generating SOA for Account ID: {$account->id}, Account Number: {$account->account_number}");
+            Log::info("Generating SOA for Account ID: {$account->id}, Account Number: {$account->account_number}");
+
+            $mail = new \App\Mail\StatementOfAccountMail($account);
+            Mail::to($account->customer->email)->queue($mail);
+
         }
 
         return redirect()->route('soa.index')->with('status', 'All SOAs have been generated successfully.');
@@ -32,7 +36,7 @@ class ManagementController extends Controller
 
     private function getAccountsForSOA()
     {
-        return Account::whereDay('start_date', 23)->get();
-        // return Account::whereDay('start_date', now()->day)->get();
+        // return Account::whereDay('start_date', 23)->get();
+        return Account::whereDay('start_date', \Carbon\Carbon::now()->addDays(10)->day)->get();
     }
 }
