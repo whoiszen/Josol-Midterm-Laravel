@@ -9,6 +9,8 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Account;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Mail\Mailables\Attachment;
 
 class StatementOfAccountMail extends Mailable
 {
@@ -49,6 +51,17 @@ class StatementOfAccountMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+            $pdf = Pdf::loadView('soa.pdf', [
+                'account' => $this->account->load('customer', 'transactions')
+            ]);
+
+
+        return [
+            Attachment::fromData(
+                fn () => $pdf->output(),
+                'SOA_'.$this->account->account_number.'.pdf'
+            )->withMime('application/pdf'),
+        ];
     }
-}
+ }
+

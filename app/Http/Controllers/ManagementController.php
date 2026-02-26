@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Account;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ManagementController extends Controller
 {
+
+    //To generate PDF for SOA
+    public function generateSOAPDF(Account $account)
+    {
+       return Pdf::loadView('soa.pdf', [
+        'account' => $account->load('customer', 'transactions')])->stream("SOA_Account_{$account->account_number}.pdf");
+    }
     public function soaGeneration()
     {
         $accounts = $this->getAccountsForSOA();

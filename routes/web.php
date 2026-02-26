@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     // SOA routes
     Route::get('/soa', [ManagementController::class, 'soaGeneration'])->name('soa.index');
     Route::get('/soa/generate-all', [ManagementController::class, 'generateAllSOAs'])->name('soa.generateAll');
+    Route::get('/soa/{account}/pdf', [ManagementController::class, 'generateSOAPDF'])->name('soa.pdf');
 });
 
 require __DIR__.'/auth.php';

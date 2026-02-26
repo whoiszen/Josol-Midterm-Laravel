@@ -9,16 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+use App\Models\Transaction;
+
 class TransactionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $transaction;
+    public Transaction $transaction;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction = $transaction; // <- assign it
     }
