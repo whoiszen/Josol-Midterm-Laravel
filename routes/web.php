@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -53,6 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/soa', [ManagementController::class, 'soaGeneration'])->name('soa.index');
     Route::get('/soa/generate-all', [ManagementController::class, 'generateAllSOAs'])->name('soa.generateAll');
     Route::get('/soa/{account}/pdf', [ManagementController::class, 'generateSOAPDF'])->name('soa.pdf');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::post('/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
+
 });
 
 require __DIR__.'/auth.php';

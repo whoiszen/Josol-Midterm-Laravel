@@ -87,7 +87,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <a href="{{ route('soa.pdf', ['account' => $account->id]) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                Generate SOA
+                                                View Pdf
                                             </a>
                                         </td>
                                     </tr>
