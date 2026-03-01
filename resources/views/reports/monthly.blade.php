@@ -7,7 +7,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+            <div class="mb-4">
+                <a href="{{ route('reports.index') }}"
+                 class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">
+                ← Back to Report Filter
+                </a>
+            </div>
             <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
 
                 <div class="overflow-x-auto">
@@ -49,6 +54,7 @@
                                     ₱{{ number_format($totalPayments,2) }}
                                 </td>
                             </tr>
+
 
                         </tbody>
                     </table>
